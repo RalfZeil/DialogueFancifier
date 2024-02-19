@@ -8,6 +8,23 @@
 #include <iostream>
 
 
+void ShowToolBoxWindow()
+{
+	ImGui::Begin("Sample Window");
+	ImGui::Text("Hi");
+	ImGui::SetItemTooltip("Hello");
+
+	// Add a button
+	if (ImGui::Button("Click Me!"))
+	{
+		std::cout << "Button Clicked!" << std::endl;
+	}
+	ImGui::SetItemTooltip("This is a button");
+
+
+	// End the window
+	ImGui::End();
+}
 
 
 int main()
@@ -16,6 +33,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	GLFWwindow* window = glfwCreateWindow(800, 600, "Dialogue Fancifier", NULL, NULL);
@@ -40,26 +58,42 @@ int main()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;     
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;   
 
 	// Setup Platform/Renderer backends
-	ImGui_ImplGlfw_InitForOpenGL(window, true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
+	ImGui_ImplGlfw_InitForOpenGL(window, true);         
 	ImGui_ImplOpenGL3_Init();
 
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
 	{
+		bool show = true;
+		bool showDemoWindow = false;
 		glfwPollEvents();
-		// (Your code calls glfwPollEvents())
-		// ...
+
 		// Start the Dear ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGui::DockSpaceOverViewport();
 		ImGui::ShowDemoWindow(); 
+		ShowToolBoxWindow();
+
+		ImGui::Begin("Options");
+		if(ImGui::Button("Show Demo Window")) 
+		{
+			showDemoWindow = true;
+		}
+
+
+		if(showDemoWindow)
+		{
+			ImGui::ShowDemoWindow();
+		}
+		ImGui::End();
 
 
 		// rendering commands
