@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\ralfz\Downloads\glad\src\glad.c" />
+    <ClCompile Include="src\Command\CommandManager.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Command\InsertTextCommand.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Windows\WindowManager.cpp" />
     <ClCompile Include="src\Windows\Window.cpp" />
@@ -158,6 +160,9 @@
     <ClCompile Include="src\Windows\WDTextEdit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Command\CommandManager.h" />
+    <ClInclude Include="src\Command\InsertTextCommand.h" />
+    <ClInclude Include="src\Command\ICommand.h" />
     <ClInclude Include="imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="imgui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="imgui\backends\imgui_impl_opengl3_loader.h" />

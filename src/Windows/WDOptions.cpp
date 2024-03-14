@@ -12,6 +12,7 @@ void WDOptions::OnUpdate()
 		}
 		ImGui::SetItemTooltip("Shows the demo window from ImGui for documentation and debug.");
 
+		if (showDemoWindow) { ImGui::ShowDemoWindow(); }
 
 		if (ImGui::Button("Open Popup"))
 		{

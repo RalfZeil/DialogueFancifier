@@ -7,6 +7,7 @@
 #include "imgui_impl_opengl3.h"
 
 #include "Windows/WindowManager.h"
+#include "Command/CommandManager.h"
 
 #include <iostream>
 
@@ -37,7 +38,6 @@ int main()
 
 	glViewport(0, 0, 800, 600);
 
-
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -46,18 +46,18 @@ int main()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;     
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;   
 
+
 	// Setup Platform/Renderer backends
 	ImGui_ImplGlfw_InitForOpenGL(window, true);         
 	ImGui_ImplOpenGL3_Init();
+
 
 	WindowManager* wm = new WindowManager();
 
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
-	{
-		bool show = true;
-		
+	{	
 		glfwPollEvents();
 
 		// Start the Dear ImGui frame
@@ -69,23 +69,19 @@ int main()
 		ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 		ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
+		// Update WindowManager
 		wm->OnUpdate();
 
-		
 
-		// ------------------------------------------- Rendering Stuff -------------------------------------------
-
-		// rendering commands
+		// Rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Rendering
-		// (Code clears your framebuffer, renders other stuff etc.)
+		// Render ImGui
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		// (Code calls glfwSwapBuffers() etc.)
 
-		// check and call events and swap the buffers
+		// Swap the buffers and check events
 		glfwSwapBuffers(window);
 		
 	}
