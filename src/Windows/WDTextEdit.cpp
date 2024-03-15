@@ -31,6 +31,11 @@ void WDTextEdit::OnUpdate() {
     }
 }
 
+void WDTextEdit::SetTextBuffer(const char* newText) {
+    strncpy_s(text, newText, sizeof(text) - 1);
+    text[sizeof(text) - 1] = '\0'; // Ensure null-termination
+}
+
 const char* WDTextEdit::GetTextBuffer() const {
     return text;
 }

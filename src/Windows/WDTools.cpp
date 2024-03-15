@@ -10,10 +10,14 @@ void WDTools::OnUpdate()
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.8f, 1.0f), "Add Attributes at Cursor");
         ImGui::SetTooltip("Clicking on a button below adds corresponding attribute to the text at the cursor's position");
 
+        ImGui::Separator();
+
         if (ImGui::Button("Undo"))
         {
             CommandManager::GetInstance().Undo();
         }
+
+        ImGui::Separator();
 
         // Color picker with label and tooltip
         static ImVec4 color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Initial color value (white)

@@ -6,6 +6,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
+#include "ImGuiFileDialog.h"
+
 #include "Windows/WindowManager.h"
 #include "Command/CommandManager.h"
 

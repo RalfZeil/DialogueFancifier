@@ -15,6 +15,7 @@ public:
 	~WDTextEdit(); 
 
 	void OnUpdate();
+	void SetTextBuffer(const char* newText);
 	const char* GetTextBuffer() const; // Getter method for text buffer
 	int GetCursorPos() const; // Getter method for cursor position
 };

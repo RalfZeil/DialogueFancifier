@@ -1,6 +1,4 @@
 #include <iostream>
-#include <fstream>
-
 #include "tinyxml2.h"
 #include "../Windows/WDTextEdit.h"
 
@@ -23,6 +21,7 @@ public:
 
     void SaveToXML();
 
-    void LoadFromXML();
+    void LoadFromXML(const std::string& filePath);
+
 };
 

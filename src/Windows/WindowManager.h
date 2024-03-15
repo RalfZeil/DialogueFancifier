@@ -25,7 +25,7 @@ public:
         windows.push_back(menuBar);
 
         // Add other windows
-        windows.push_back(new WDOptions());
+        //windows.push_back(new WDOptions()); Removed for now since its not needed
         
     }
 
