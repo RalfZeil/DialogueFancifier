@@ -6,26 +6,29 @@ void WDTools::OnUpdate()
 {
     if (show)
     {
-        ImGui::Begin("Sample Window");
-        ImGui::Text("Hi");
-        ImGui::SetItemTooltip("Hello");
+        ImGui::Begin("Tools");
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.8f, 1.0f), "Add Attributes at Cursor");
+        ImGui::SetTooltip("Clicking on a button below adds corresponding attribute to the text at the cursor's position");
 
+        if (ImGui::Button("Undo"))
+        {
+            CommandManager::GetInstance().Undo();
+        }
+
+        // Color picker with label and tooltip
         static ImVec4 color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Initial color value (white)
-        ImGui::ColorEdit3("Color", (float*)&color); // Color picker
+        ImGui::ColorEdit3("Color", (float*)&color);
         ImGui::SameLine();
         if (ImGui::Button("Add Color"))
         {
-            // Convert color to hexadecimal format
             std::string hexColor = ColorToHex(color);
-
-            // Construct insert text command with color
             std::string commandText = "<color=" + hexColor + ">";
             InsertTextCommand* cmd = new InsertTextCommand(const_cast<char*>(wdTextEdit.GetTextBuffer()), wdTextEdit.GetCursorPos(), commandText);
             CommandManager::GetInstance().ExecuteCommand(cmd);
         }
-        ImGui::SetItemTooltip("Adds a color attribute");
+        ImGui::SetTooltip("Adds a color attribute");
 
-
+        // Slider for text size with label and tooltip
         static float sizeValue = 12.0f; // Initial value
         ImGui::SliderFloat("Size", &sizeValue, 6.0f, 36.0f);
         ImGui::SameLine();
@@ -35,8 +38,9 @@ void WDTools::OnUpdate()
             InsertTextCommand* cmd = new InsertTextCommand(const_cast<char*>(wdTextEdit.GetTextBuffer()), wdTextEdit.GetCursorPos(), commandText);
             CommandManager::GetInstance().ExecuteCommand(cmd);
         }
+        ImGui::SetTooltip("Adds a size attribute");
 
-
+        // Combo box for alignment selection with label and tooltip
         static const char* alignments[] = { "Left", "Center", "Right" };
         static int alignmentIndex = 0; // Initial alignment index
         ImGui::Combo("Alignment", &alignmentIndex, alignments, IM_ARRAYSIZE(alignments));
@@ -44,16 +48,16 @@ void WDTools::OnUpdate()
         if (ImGui::Button("Add Alignment"))
         {
             std::string alignmentString = alignments[alignmentIndex];
-            // Construct insert text command with alignment
             std::string commandText = "<align=" + alignmentString + ">";
             InsertTextCommand* cmd = new InsertTextCommand(const_cast<char*>(wdTextEdit.GetTextBuffer()), wdTextEdit.GetCursorPos(), commandText);
             CommandManager::GetInstance().ExecuteCommand(cmd);
         }
+        
 
-        // End the window
-        ImGui::End();
+        ImGui::End(); // End the window
     }
 }
+
 
 
 std::string WDTools::ColorToHex(const ImVec4& color)

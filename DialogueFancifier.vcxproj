@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\ralfz\Downloads\glad\src\glad.c" />
+    <ClCompile Include="src\Saving\SaveManager.cpp" />
     <ClCompile Include="src\Command\CommandManager.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\Command\InsertTextCommand.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Saving\tinyxml2.cpp" />
     <ClCompile Include="src\Windows\WindowManager.cpp" />
     <ClCompile Include="src\Windows\Window.cpp" />
     <ClCompile Include="src\Windows\WDMenuBar.cpp" />
@@ -160,6 +162,7 @@
     <ClCompile Include="src\Windows\WDTextEdit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Saving\SaveManager.h" />
     <ClInclude Include="src\Command\CommandManager.h" />
     <ClInclude Include="src\Command\InsertTextCommand.h" />
     <ClInclude Include="src\Command\ICommand.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Saving\tinyxml2.h" />
     <ClInclude Include="src\Windows\WindowManager.h" />
     <ClInclude Include="src\Windows\Window.h" />
     <ClInclude Include="src\Windows\WDMenuBar.h" />

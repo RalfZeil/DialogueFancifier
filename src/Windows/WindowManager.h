@@ -21,9 +21,12 @@ public:
         WDTools* toolsWindow = new WDTools(*textEditWindow);
         windows.push_back(toolsWindow);
 
-        // Add other windows as needed
+        WDMenuBar* menuBar = new WDMenuBar(*textEditWindow);
+        windows.push_back(menuBar);
+
+        // Add other windows
         windows.push_back(new WDOptions());
-        windows.push_back(new WDMenuBar());
+        
     }
 
     ~WindowManager() {

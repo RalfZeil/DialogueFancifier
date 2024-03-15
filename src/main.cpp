@@ -46,14 +46,16 @@ int main()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;     
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;   
 
+	float fontSize = 16.0f; 
+	//ImFont* font = io.Fonts->AddFontFromFileTTF("fonts/Roboto-Regular.ttf", fontSize);
+	//ImFont* bigFont = io.Fonts->AddFontFromFileTTF("fonts/Roboto-Regular.ttf", fontSize * 2);
+
 
 	// Setup Platform/Renderer backends
 	ImGui_ImplGlfw_InitForOpenGL(window, true);         
 	ImGui_ImplOpenGL3_Init();
 
-
 	WindowManager* wm = new WindowManager();
-
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
