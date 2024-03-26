@@ -24,9 +24,6 @@ void WDTextEdit::OnUpdate() {
                 return 0;
             }, this);
 
-        // Debug print statement to verify text buffer update
-        printf("Current text buffer: %s\n", text);
-
         ImGui::End();
     }
 }
