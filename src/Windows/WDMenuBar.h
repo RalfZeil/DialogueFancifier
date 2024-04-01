@@ -18,6 +18,7 @@ class WDMenuBar : public Window
 {
 private:
 	WDTextEdit& wdTextEdit; // Reference to text box
+	bool saveModalOpen;
 public:
 	WDMenuBar(WDTextEdit& wdTextEdit);
 	void OnUpdate();

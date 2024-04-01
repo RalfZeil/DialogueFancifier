@@ -1,7 +1,6 @@
 #include "SaveManager.h"
 
-
-void SaveManager::SaveToXML()
+void SaveManager::SaveToXML(const std::string& filename)
 {
     // Retrieve the text buffer
     const char* textBuffer = wdTextEdit.GetTextBuffer();
@@ -16,8 +15,8 @@ void SaveManager::SaveToXML()
     textElement->SetText(textBuffer);
     root->InsertEndChild(textElement);
 
-    // Save the XML document to a file
-    doc.SaveFile("output.xml");
+    // Save the XML document to the specified file
+    doc.SaveFile(filename.c_str());
 }
 
 void SaveManager::LoadFromXML(const std::string& filePath)
@@ -61,6 +60,3 @@ void SaveManager::LoadFromXML(const std::string& filePath)
 
     std::cout << "Loaded text: " << loadedText << std::endl;
 }
-
-
-

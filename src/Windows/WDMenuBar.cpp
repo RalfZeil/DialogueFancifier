@@ -1,6 +1,7 @@
 #include "WDMenuBar.h"
+#include <windows.h> 
 
-WDMenuBar::WDMenuBar(WDTextEdit& wdTextEdit) : wdTextEdit(wdTextEdit) {}
+WDMenuBar::WDMenuBar(WDTextEdit& wdTextEdit) : wdTextEdit(wdTextEdit), saveModalOpen(false) {}
 
 void WDMenuBar::OnUpdate()
 {
@@ -9,18 +10,9 @@ void WDMenuBar::OnUpdate()
         ImGui::BeginMainMenuBar();
         if (ImGui::BeginMenu("File"))
         {
-            //if (ImGui::MenuItem("New"))
-            //{
-            //    // Implementation for "New" menu item
-            //}
-            if (ImGui::BeginMenu("Save as"))
+            if (ImGui::MenuItem("Save As..."))
             {
-                // Save text to XML using SaveManager
-                if (ImGui::MenuItem("XML"))
-                {
-                    SaveManager::GetInstance(wdTextEdit).SaveToXML();
-                }
-                ImGui::EndMenu();
+                saveModalOpen = true; // Open the save modal
             }
             if (ImGui::MenuItem("Load"))
             {
@@ -32,7 +24,37 @@ void WDMenuBar::OnUpdate()
         ImGui::EndMainMenuBar();
     }
 
-    // Display the file dialog and handle the result
+    // Display the save modal dialog
+    if (saveModalOpen)
+    {
+        ImGuiFileDialog::Instance()->OpenDialog("Save As", "Choose Directory", ".xml");
+        saveModalOpen = false; // Reset saveModalOpen
+    }
+
+    // Handle the file dialog result for save operation
+    if (ImGuiFileDialog::Instance()->Display("Save As"))
+    {
+        if (ImGuiFileDialog::Instance()->IsOk())
+        {
+            // Retrieve the selected file path from the file dialog
+            std::string filepath = ImGuiFileDialog::Instance()->GetFilePathName();
+
+            // Check if the file already has .xml extension
+            if (filepath.substr(filepath.find_last_of(".") + 1) != "xml")
+            {
+                // Append .xml extension to the file path
+                filepath += ".xml";
+            }
+
+            // Save the file
+            SaveManager::GetInstance(wdTextEdit).SaveToXML(filepath);
+
+            // Close the file dialog
+            ImGuiFileDialog::Instance()->Close();
+        }
+    }
+
+    // Display the file dialog and handle the result for load operation
     if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey"))
     {
         if (ImGuiFileDialog::Instance()->IsOk())
@@ -44,6 +66,7 @@ void WDMenuBar::OnUpdate()
         ImGuiFileDialog::Instance()->Close();
     }
 }
+
 std::wstring WDMenuBar::SelectFile()
 {
 	OPENFILENAME ofn;       // common dialog box structure

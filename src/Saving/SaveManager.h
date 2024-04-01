@@ -19,7 +19,7 @@ public:
         return instance;
     }
 
-    void SaveToXML();
+    void SaveToXML(const std::string& filename);
 
     void LoadFromXML(const std::string& filePath);
 

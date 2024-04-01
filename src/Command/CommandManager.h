@@ -9,6 +9,7 @@ class CommandManager
 private:
     std::stack<ICommand*> commandStack;
     std::stack<ICommand*> undoStack;
+    std::stack<ICommand*> redoStack;
 
     CommandManager() {} // Private constructor
     CommandManager(const CommandManager&) = delete; // Prevent copying
@@ -25,7 +26,14 @@ public:
     {
         command->Execute();
         commandStack.push(command);
-        undoStack.push(command);
+        undoStack.push(command); // Add command to undo stack
+
+        // Clear redo stack when a new command is executed
+        while (!redoStack.empty())
+        {
+            delete redoStack.top();
+            redoStack.pop();
+        }
     }
 
     void Undo()
@@ -35,7 +43,20 @@ public:
             ICommand* command = undoStack.top();
             command->Undo();
             undoStack.pop();
-            commandStack.pop();
+            // Add undone command to redo stack
+            redoStack.push(command);
+        }
+    }
+
+    void Redo()
+    {
+        if (!redoStack.empty())
+        {
+            ICommand* command = redoStack.top();
+            command->Execute();
+            redoStack.pop();
+            // Add redone command back to undo stack
+            undoStack.push(command);
         }
     }
 };
